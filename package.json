@@ -1,0 +1,18 @@
+{
+  "name": "rohan-blog",
+  "version": "1.0.0",
+  "description": "Personal blog website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build.js",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "marked": "^9.1.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.0"
+  }
+} 
