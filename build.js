@@ -21,7 +21,7 @@ async function buildBlogs() {
             
             return `
                 <div class="blog-card">
-                    <h3><a href="/blogs/${slug}.html">${title}</a></h3>
+                    <h3><a href="portfolio/blogs/${slug}.html">${title}</a></h3>
                     <div class="blog-meta">Published on: ${date}</div>
                 </div>
             `;
@@ -41,7 +41,7 @@ async function buildBlogs() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${title} - Rohan Pudasaini's Blog</title>
-    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="../index.css">
 </head>
 <body>
     <nav class="navbar">
@@ -69,7 +69,7 @@ async function buildBlogs() {
         </div>
     </main>
 
-    <script src="/index.js"></script>
+    <script src="../index.js"></script>
 </body>
 </html>`;
             
