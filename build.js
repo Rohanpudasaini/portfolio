@@ -21,7 +21,7 @@ async function buildBlogs() {
             
             return `
                 <div class="blog-card">
-                    <h3><a href="/blogs/${slug}.html">${title}</a></h3>
+                    <h3><a href="portfolio/blogs/${slug}.html">${title}</a></h3>
                     <div class="blog-meta">Published on: ${date}</div>
                 </div>
             `;
