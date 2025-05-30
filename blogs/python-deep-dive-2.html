@@ -1,0 +1,170 @@
+
+                <div class="blog-post">
+                    <h1>Python deep Dive 2</h1>
+                    <div class="blog-meta">Published on: 5/30/2025</div>
+                    <div class="blog-content"><h1>Setting Up VSCode to Debug CPython: Your Gateway to Python Internals</h1>
+<p><img src="https://cdn-images-1.medium.com/max/2560/1*D9bywy1rI7jpwUmOPPwpBQ.png" alt=""></p>
+<p>Have you ever wondered how Python’s interpreter executes your code? In the first part of this series, we explored what happens when you run python main.py—from tokenization to bytecode execution. But to truly understand how Python works, we need to go deeper. And what better way to do that than by debugging the CPython source code itself?</p>
+<p>In this article, we’ll set up <strong>VSCode</strong> to debug CPython. Why VSCode? Because it’s one of the most popular code editors, and its powerful debugging tools make it perfect for exploring C code. By the end of this guide, you’ll be able to:</p>
+<ul>
+<li><p>Step through CPython’s C code.</p>
+</li>
+<li><p>Set breakpoints and inspect variables.</p>
+</li>
+</ul>
+<p>So, let’s get started and turn VSCode into your ultimate tool for exploring Python’s internals!</p>
+<h2>Prerequisites</h2>
+<p>Before we dive into setting up VSCode to debug CPython, there are a few things you should know and have in place. This will ensure you can follow along smoothly and get the most out of this guide.</p>
+<h3>1. Read Part 1 of This Series</h3>
+<p>This article builds on the concepts introduced in <strong>Part 1</strong>, where we discussed what happens when you run python main.py and introduced the idea of exploring CPython’s internals. If you haven’t read it yet, I highly recommend checking it out first: <a href="https://medium.com/@rohanpudasaini581/what-happens-when-you-run-python-main-py-a-high-level-overview-4bf5e23336f8">Link to Part 1</a> <a href="obsidian://open?vault=Learning&file=DeepDivePython%2FPart%201">local</a></p>
+<h3>2. Basic Command-Line Skills (Optional)</h3>
+<p>You’ll need to run commands in the terminal to clone repositories, build Python, and install tools. If you’re not comfortable with the command line, take some time to learn the basics. Here’s a quick guide to get you started: <a href="https://www.freecodecamp.org/news/command-line-for-beginners/">Command Line Basics for Beginners</a></p>
+<h3>3. How to Install Missing Packages</h3>
+<p>If any tools or packages mentioned in this guide are missing on your system, you’ll need to install them. Here’s how:</p>
+<ul>
+<li><p><strong>On Ubuntu/Debian</strong>: Use apt-get to install packages. For example:</p>
+<p>  sudo apt-get install <package-name></p>
+</li>
+<li><p><strong>On macOS</strong>: Use brew (Homebrew) to install packages. For example:</p>
+<p> brew install <package-name></p>
+</li>
+<li><p><strong>On Windows</strong>: Use tools like choco (Chocolatey) or download installers from official websites.</p>
+</li>
+</ul>
+<h3>4. Curiosity and Willingness to Learn</h3>
+<p>Debugging CPython’s C code isn’t something you do every day, and it can feel intimidating at first. But don’t worry — this guide is designed to make it as approachable as possible. The most important prerequisite is your <strong>interest in learning</strong> and your <strong>willingness to experiment</strong>. If you’re excited to understand how Python works under the hood, you’re already halfway there!</p>
+<h2>Steps to Set Up VSCode for Debugging CPython</h2>
+<p>Now that you’ve got the prerequisites covered, let’s dive into the fun part: setting up VSCode to debug CPython. By the end of this section, you’ll have a fully functional debugging environment ready to explore Python’s internals.</p>
+<h3>Step 1: Clone the CPython Repository — Your Gateway to Python’s Source Code</h3>
+<p>If you haven’t already, clone the CPython repository to get the source code:</p>
+<pre><code>git clone https://github.com/python/cpython.git
+cd cpython
+</code></pre>
+<p>This is where the magic happens — Python’s entire implementation, written in C, is now at your fingertips.</p>
+<h3>Step 2: Build Python in Debug Mode — Unleashing the Power of Debug Symbols</h3>
+<p>To debug CPython effectively, we need to build it in debug mode. This enables additional checks and debugging symbols that make it easier to trace execution.</p>
+<ul>
+<li><p>Run the configure script with the --with-pydebug flag:</p>
+<p>  ./configure --with-pydebug</p>
+</li>
+<li><p>Compile Python using make:</p>
+<p>  make -j8</p>
+</li>
+</ul>
+<p>The -j8 flag speeds up the build by using 8 threads (adjust this based on your CPU).</p>
+<p>Once the build is complete, you’ll have a custom Python executable in the cpython directory. Test it by running:</p>
+<pre><code>./python --version
+</code></pre>
+<h3>Step 3: Install VSCode and Extensions — Your Debugging Toolkit</h3>
+<ol>
+<li><p><strong>Install VSCode</strong>: Download and install <a href="https://code.visualstudio.com/">Visual Studio Code</a> if you haven’t already.</p>
+</li>
+<li><p><strong>Install Extensions</strong>:</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>C/C++</strong>: For debugging C code.</p>
+</li>
+<li><p><strong>Python</strong>: For Python language support.
+You can install these from the Extensions Marketplace in VSCode.</p>
+</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/4112/1*k4R5G-VydX-n6NPdm2bd5w.png" alt="C extension"></p>
+<p><img src="https://cdn-images-1.medium.com/max/4112/1*_h-7ej4dp_OGKmhUjzntqg.png" alt="Python extensions"></p>
+<h3>Step 4: Configure VSCode for Debugging — Setting the Stage</h3>
+<p>Now, let’s configure VSCode to debug CPython’s C code.</p>
+<ol>
+<li><p>Open the cpython folder in VSCode.</p>
+</li>
+<li><p>Create a .vscode folder in the root directory (if it doesn’t exist).</p>
+</li>
+<li><p>Add a launch.json file with the following configuration:</p>
+</li>
+</ol>
+<p><strong>For Windows or Linux:</strong></p>
+<pre><code>{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;Debug CPython&quot;,
+      &quot;type&quot;: &quot;cppdbg&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;program&quot;: &quot;${workspaceFolder}/python&quot;,
+      &quot;args&quot;: [&quot;${workspaceFolder}/path/to/your_script.py&quot;],
+      &quot;stopAtEntry&quot;: false,
+      &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+      &quot;environment&quot;: [],
+      &quot;externalConsole&quot;: false,
+      &quot;MIMode&quot;: &quot;gdb&quot;,
+      &quot;setupCommands&quot;: [
+        {
+          &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,
+          &quot;text&quot;: &quot;-enable-pretty-printing&quot;,
+          &quot;ignoreFailures&quot;: true
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>Replace &quot;${workspaceFolder}/path/to/your_script.py&quot; with the path to your Python script.</p>
+<p><strong>For MAC OS:</strong></p>
+<p>From my experience in MAC, lldm will be the best fit. Don’t worry — LLDB works just as well! Here’s how to set it up:</p>
+<ul>
+<li><p><strong>Install LLDB</strong>: It comes pre-installed with Xcode. If you don’t have Xcode, install it from the App Store or install the Xcode command-line tools:</p>
+<p>  xcode-select --install</p>
+</li>
+<li><p><strong>Update launch.json</strong>: Replace &quot;MIMode&quot;: &quot;gdb&quot; with &quot;MIMode&quot;: &quot;lldb&quot; in your launch.json file.</p>
+</li>
+<li><p><strong>Debug as Usual</strong>: LLDB works similarly to GDB, so you can follow the same steps to set breakpoints and step through the code.</p>
+</li>
+</ul>
+<h3>Step 5: Write a Simple Python Script — Your Debugging Playground</h3>
+<p>Create a main.py file in your workspace:</p>
+<pre><code># /{workspaceFolder}/main.py
+print(&quot;hello world&quot;)
+</code></pre>
+<p>This simple script will help us trace how Python processes a function call and prints output.</p>
+<h3>Step 6: Set Breakpoints and Debug — Stepping into the C Code</h3>
+<ol>
+<li><p>Open a C file in the CPython source code (e.g., Programs/python.c).</p>
+</li>
+<li><p>Set a breakpoint at a function like main or wmain.</p>
+</li>
+<li><p>Press F5 to start debugging.</p>
+</li>
+<li><p>Step through the code, inspect variables, and see how Python executes your script.</p>
+</li>
+</ol>
+ <iframe src="https://medium.com/media/3b06a65ddd33625e2c47907c556d58ab" frameborder=0></iframe>
+
+<h2>Common Issues and Troubleshooting</h2>
+<ul>
+<li><p><strong>Debugger not working</strong>: Ensure you’ve built Python in debug mode (--with-pydebug).</p>
+</li>
+<li><p><strong>Missing GDB</strong>: Install GDB using sudo apt-get install gdb (Linux) or equivalent for your OS.</p>
+</li>
+<li><p><strong>VSCode configuration errors</strong>: Double-check your launch.json file for typos or incorrect paths.</p>
+</li>
+</ul>
+<h2>What’s Next?</h2>
+<p>Now that you’ve set up VSCode for debugging CPython, it’s time to start exploring the code! In the next part of this series, we’ll take a closer look at <strong>how the Python runtime is initialized</strong>. This is where everything begins — when you run python main.py, the interpreter sets up the environment, initializes core components, and prepares to execute your script.</p>
+<p>We’ll:</p>
+<ul>
+<li><p>Trace the initialization process step by step.</p>
+</li>
+<li><p>Use our debugging setup to step through the relevant C code.</p>
+</li>
+<li><p>Explore key functions like Py_Initialize() and Py_Main().</p>
+</li>
+</ul>
+<p>By starting small, we’ll build a solid foundation for understanding the bigger picture. Get ready to see how Python boots up and gets ready to run your code!</p>
+<h2>Join the Deep Dive</h2>
+<p>If you’ve successfully set up VSCode and are excited to dive into the initialization process, let me know in the comments! If you ran into any issues or have questions, feel free to ask — I’m here to help.</p>
+<p>And if you’re curious about how Python gets started under the hood, make sure to <strong>follow</strong> or <strong>subscribe</strong> so you don’t miss the next part. Let’s keep exploring Python’s internals together — one step at a time!</p>
+</div>
+                    <div class="blog-navigation">
+                        <a href="/" class="btn">← Back to Home</a>
+                    </div>
+                </div>
+            

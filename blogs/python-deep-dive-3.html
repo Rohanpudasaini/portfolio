@@ -1,0 +1,21 @@
+
+                <div class="blog-post">
+                    <h1>Python deep Dive 3</h1>
+                    <div class="blog-meta">Published on: 5/30/2025</div>
+                    <div class="blog-content"><p>Getting started with Debugging</p>
+<ol>
+<li>Using the <code>launch.json</code> that we have set before, it stop the code execution in <code>Programs/python.c</code> file. Here we check the OS we are using a macro <code>#ifdef MS_WINDOWS</code> this macro will only be defined in windows system and will have it&#39;s own main entry point. For this article we will be following the else statement as I am not using windows. We see we will be going inside the <code>Py_BytesMain</code> function let&#39;s follow with <code>step into</code> option.</li>
+<li>Here we see we will be putting the arguments that we have passed and their informations into a struct called as <code>_PyArgv</code>. As we saw from above if we have been using windows system the command line arguments would have been in unicode format rather than in the bytes format. That&#39;s why we have two entry point and also we can see the difference in <code>bytes_argv</code> and <code>wchar_argv</code> key of struct <code>_PyArgv</code>. Then from both point we will be calling the <code>pymain_main</code> function.</li>
+<li>Now we will be starting the initialization process of the python. In coming code you will see a patter to check status of the response with something like <code>PyStatus status = some_function(arguments);</code> here the<code>PyStatus</code> is a struct which will hold all the possible response that we will get from the function we have called. Finally we will check if the status match some cases like for exception using this function<code>_PyStatus_EXCEPTION</code></li>
+<li>We will now go deep into the initialization process, so let&#39;s step into the <code>pymain_init</code> function.</li>
+<li>Firstly we will check for the runtime status with <code>_PyRuntime_Initialize</code>. As python supports multi threading and the function can be provoked from any thread. We try to make it as singleton and will not let anyone initialize the runtime more than once.</li>
+<li>For our case as we don&#39;t have any already running runtime, we will proceed into <code>_PyRuntimeState_Init</code> function. The runtime we have passed here is a struct and have default value.</li>
+<li>Before we continue we need to know little about TSS(Thread specific storage) and GIL state and Thread Specific Trash</li>
+<li>These steps involve us diving deep into memory and memory allocation so we will continue in next part.</li>
+</ol>
+</div>
+                    <div class="blog-navigation">
+                        <a href="/" class="btn">← Back to Home</a>
+                    </div>
+                </div>
+            

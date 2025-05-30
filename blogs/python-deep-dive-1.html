@@ -1,0 +1,69 @@
+
+                <div class="blog-post">
+                    <h1>Python deep Dive 1</h1>
+                    <div class="blog-meta">Published on: 5/30/2025</div>
+                    <div class="blog-content"><h1>What Happens When You Run <code>python main.py</code>? A High-Level Overview</h1>
+<hr>
+<p><img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hpkABTZZ_HFLrvkcKFiDWQ.png" alt="captionless image"></p>
+<p>If you’re a Python developer, you’ve probably run <code>python main.py</code> hundreds, if not thousands, of times. It’s as simple as typing a command and watching your code come to life. But have you ever wondered what <em>really</em> happens under the hood when you hit Enter? What magic transforms your human-readable Python code into something your computer can execute?</p>
+<p>Interesting, right? Well, a few days ago, I found myself asking the same question. I decided to dive deep into Python’s internals and explore its source code (which, by the way, is written in C). What I discovered was fascinating, and I thought, why not share this journey with all of you?
+In this series, <strong>Deep Diving into How Python Really Works</strong>, I’ll take you through everything I’ve learned. We’ll get our hands dirty, explore the CPython source code, and even use a debugger to step through the C code that makes Python, well, <em>Python</em>. By the end of this series, you’ll have a solid understanding of what happens when you run <code>python main.py</code>—right from the moment you hit Enter to the execution of your code.</p>
+<p>So, buckle up! In this first part, we’ll start with a high-level overview of the process and set up our environment for the deep dive. From the next part onward, we’ll get into the actual source code and see how Python is <em>Pythoning</em>.</p>
+<h2>A Quick Disclaimer</h2>
+<hr>
+<p>Before we dive in, I want to be upfront about something: I’m not a C expert. My knowledge of C comes mostly from reading about it during my Bachelor’s degree in BSc CSIT, and I’ve never worked on large-scale C projects professionally. This means I might make mistakes or misinterpret things as I explore the CPython source code. But that’s part of the learning process, right?</p>
+<p>Everything I share in this series is based on my own exploration and experimentation. I’ll be diving deep into the C code, using a debugger to trace execution, and sharing my findings as I go. If you spot any errors or have additional insights, please feel free to point them out in the comments — I’d love to learn from you too!
+With that said, let’s roll up our sleeves and start this exciting journey into the heart of Python.</p>
+<h2>The Journey of a Python Script</h2>
+<hr>
+<p>When you run <code>python main.py</code>, your code goes through a series of transformations before it’s executed. Here’s a simplified breakdown of what happens:</p>
+<ol>
+<li><p><strong>The Python Interpreter</strong>:</p>
+<p> The <code>python</code> command invokes the Python interpreter, which is the core of Python’s execution model. It reads your script, processes it, and executes it.</p>
+</li>
+<li><p><strong>Tokenization and Parsing</strong>:</p>
+<p> The interpreter first breaks your code into smaller pieces called <em>tokens</em>. These tokens represent the basic elements of your code, like keywords, variables, and operators.
+ These tokens are then parsed into an <em>Abstract Syntax Tree (AST)</em>, a tree-like structure that represents the syntactic structure of your code.</p>
+</li>
+<li><p><strong>Compilation to Bytecode</strong>:</p>
+<p> The AST is compiled into <em>bytecode</em>, a low-level, platform-independent representation of your code. Bytecode is not machine code but an intermediate form that the Python Virtual Machine (PVM) can execute.</p>
+</li>
+<li><p><strong>Execution by the Python Virtual Machine (PVM)</strong>:</p>
+<p> The bytecode is executed by the PVM, which is Python’s runtime engine. The PVM reads the bytecode instructions and performs the corresponding operations.</p>
+</li>
+</ol>
+<p><img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Ae2Z7xMVk4_UDyhGm2k0Nw.png" alt="Flow of python code"></p>
+<h2>The Role of CPython</h2>
+<hr>
+<p>Python is implemented in C, and the most widely used implementation is called <strong>CPython</strong>. When you run <code>python main.py</code>, you’re actually running the CPython interpreter. CPython handles everything from tokenization and parsing to bytecode compilation and execution.
+But CPython is more than just an interpreter. It’s a complex piece of software that includes:</p>
+<ul>
+<li><p>A <strong>lexer</strong> and <strong>parser</strong> to process your code.</p>
+</li>
+<li><p>A <strong>compiler</strong> to generate bytecode.</p>
+</li>
+<li><p>A <strong>virtual machine</strong> to execute the bytecode.</p>
+</li>
+<li><p>A <strong>memory manager</strong> to handle object allocation and deallocation.</p>
+</li>
+<li><p>A <strong>standard library</strong> that provides built-in modules and functions.
+As mentioned earlier, to truly understand how the Python interpreter works, we’ll set up our own Python environment in the upcoming article. This will allow us to dive deep into its internals and explore the magic behind the scenes.</p>
+</li>
+</ul>
+<h2>Conclusion</h2>
+<hr>
+<p>Running <code>python main.py</code> might seem like a simple command, but as we’ve seen, it sets off a fascinating chain of events under the hood. From tokenization and parsing to bytecode compilation and execution, Python’s interpreter works tirelessly to transform your human-readable code into something your computer can understand.
+This is just the beginning of our journey. In the next article, we’ll roll up our sleeves and dive deeper. We’ll set up a debugging environment, explore the CPython source code, and use tools like LLDB or GDB to trace how Python processes your script step by step. By the end of this series, you’ll have a solid understanding of what makes Python tick — right down to its C code.</p>
+<h2>Join Me on This Journey!</h2>
+<hr>
+<p>If you’re as excited as I am to explore Python’s internals, make sure to <strong>follow along</strong>! In the next article, we’ll set up our debugging environment and start diving into the CPython source code. If you have any questions or thoughts about what we’ve covered so far, drop a comment below — I’d love to hear from you.
+And if you don’t want to miss the next part of this series, <strong>subscribe</strong> or <strong>follow</strong> to get notified when it’s out. Let’s uncover the magic behind Python together!</p>
+<h2>What’s in Store for Part 2?</h2>
+<hr>
+<p>In <strong>Part 2</strong>, we’ll set up our debugging environment by cloning the CPython repository, building Python in debug mode, and configuring LLDB. This will prepare us to dive into the source code and explore how Python processes your script. Get ready to get your hands dirty!</p>
+</div>
+                    <div class="blog-navigation">
+                        <a href="/" class="btn">← Back to Home</a>
+                    </div>
+                </div>
+            
