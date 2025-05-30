@@ -1,8 +1,31 @@
 
-                <div class="blog-post">
-                    <h1>Python deep Dive 3</h1>
-                    <div class="blog-meta">Published on: 5/30/2025</div>
-                    <div class="blog-content"><p>Getting started with Debugging</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python deep Dive 3 - Rohan Pudasaini's Blog</title>
+    <link rel="stylesheet" href="/portfolio/index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RP</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/portfolio/">Home</a></li>
+                <li class="nav-item"><a href="/portfolio/#projects">Projects</a></li>
+                <li class="nav-item"><a href="/portfolio/#blog" class="active">Blog</a></li>
+                <li class="nav-item"><a href="/portfolio/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="blog-post">
+                <h1>Python deep Dive 3</h1>
+                <div class="blog-meta">Published on: 5/30/2025</div>
+                <div class="blog-content"><p>Getting started with Debugging</p>
 <ol>
 <li>Using the <code>launch.json</code> that we have set before, it stop the code execution in <code>Programs/python.c</code> file. Here we check the OS we are using a macro <code>#ifdef MS_WINDOWS</code> this macro will only be defined in windows system and will have it&#39;s own main entry point. For this article we will be following the else statement as I am not using windows. We see we will be going inside the <code>Py_BytesMain</code> function let&#39;s follow with <code>step into</code> option.</li>
 <li>Here we see we will be putting the arguments that we have passed and their informations into a struct called as <code>_PyArgv</code>. As we saw from above if we have been using windows system the command line arguments would have been in unicode format rather than in the bytes format. That&#39;s why we have two entry point and also we can see the difference in <code>bytes_argv</code> and <code>wchar_argv</code> key of struct <code>_PyArgv</code>. Then from both point we will be calling the <code>pymain_main</code> function.</li>
@@ -14,8 +37,13 @@
 <li>These steps involve us diving deep into memory and memory allocation so we will continue in next part.</li>
 </ol>
 </div>
-                    <div class="blog-navigation">
-                        <a href="/" class="btn">← Back to Home</a>
-                    </div>
+                <div class="blog-navigation">
+                    <a href="/portfolio/" class="btn">← Back to Home</a>
                 </div>
-            
+            </div>
+        </div>
+    </main>
+
+    <script src="/portfolio/index.js"></script>
+</body>
+</html>
