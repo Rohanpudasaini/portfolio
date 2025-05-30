@@ -41,7 +41,7 @@ async function buildBlogs() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${title} - Rohan Pudasaini's Blog</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <nav class="navbar">
@@ -69,7 +69,7 @@ async function buildBlogs() {
         </div>
     </main>
 
-    <script src="index.js"></script>
+    <script src="/index.js"></script>
 </body>
 </html>`;
             
