@@ -48,10 +48,10 @@ async function buildBlogs() {
         <div class="nav-container">
             <div class="logo">RP</div>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="/portfolio/">Home</a></li>
-                <li class="nav-item"><a href="/portfolio/#projects">Projects</a></li>
-                <li class="nav-item"><a href="/portfolio/#blog" class="active">Blog</a></li>
-                <li class="nav-item"><a href="/portfolio/#contact">Contact</a></li>
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/#projects">Projects</a></li>
+                <li class="nav-item"><a href="/#blog" class="active">Blog</a></li>
+                <li class="nav-item"><a href="/#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -63,7 +63,7 @@ async function buildBlogs() {
                 <div class="blog-meta">Published on: ${date}</div>
                 <div class="blog-content">${marked.parse(content)}</div>
                 <div class="blog-navigation">
-                    <a href="/portfolio/" class="btn">← Back to Home</a>
+                    <a href="/" class="btn">← Back to Home</a>
                 </div>
             </div>
         </div>
