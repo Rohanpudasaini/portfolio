@@ -21,7 +21,7 @@ async function buildBlogs() {
             
             return `
                 <div class="blog-card">
-                    <h3><a href="portfolio/blogs/${slug}.html">${title}</a></h3>
+                    <h3><a href="/blogs/${slug}.html">${title}</a></h3>
                     <div class="blog-meta">Published on: ${date}</div>
                 </div>
             `;
@@ -35,15 +35,43 @@ async function buildBlogs() {
             const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             
             const blogHTML = `
-                <div class="blog-post">
-                    <h1>${title}</h1>
-                    <div class="blog-meta">Published on: ${date}</div>
-                    <div class="blog-content">${marked.parse(content)}</div>
-                    <div class="blog-navigation">
-                        <a href="/" class="btn">← Back to Home</a>
-                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title} - Rohan Pudasaini's Blog</title>
+    <link rel="stylesheet" href="/portfolio/index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RP</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/portfolio/">Home</a></li>
+                <li class="nav-item"><a href="/portfolio/#projects">Projects</a></li>
+                <li class="nav-item"><a href="/portfolio/#blog" class="active">Blog</a></li>
+                <li class="nav-item"><a href="/portfolio/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="blog-post">
+                <h1>${title}</h1>
+                <div class="blog-meta">Published on: ${date}</div>
+                <div class="blog-content">${marked.parse(content)}</div>
+                <div class="blog-navigation">
+                    <a href="/portfolio/" class="btn">← Back to Home</a>
                 </div>
-            `;
+            </div>
+        </div>
+    </main>
+
+    <script src="/portfolio/index.js"></script>
+</body>
+</html>`;
             
             await fs.writeFile(`dist/blogs/${slug}.html`, blogHTML);
         }
